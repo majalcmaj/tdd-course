@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FriendsCollection.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tdd-course</a> &gt; <a href="index.source.html" class="el_package">pl.mwciesiel.tdd.c02</a> &gt; <span class="el_source">FriendsCollection.java</span></div><h1>FriendsCollection.java</h1><pre class="source lang-java linenums">package pl.mwciesiel.tdd.c02;
+
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import org.jongo.Jongo;
+import org.jongo.MongoCollection;
+
+import java.rmi.UnknownHostException;
+
+public class FriendsCollection {
+    private MongoCollection friends;
+
+<span class="nc" id="L13">    public FriendsCollection() {</span>
+<span class="nc" id="L14">        DB db = new MongoClient().getDB(&quot;friendships&quot;);</span>
+<span class="nc" id="L15">        friends = new Jongo(db).getCollection(&quot;friends&quot;);</span>
+<span class="nc" id="L16">    }</span>
+
+    public Person findByName(String name) {
+<span class="nc" id="L19">        return friends.findOne(&quot;{_id: #}&quot;, name).as(Person.class);</span>
+    }
+
+    public void save(Person p) {
+<span class="nc" id="L23">        friends.save(p);</span>
+<span class="nc" id="L24">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

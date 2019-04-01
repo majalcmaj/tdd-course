@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" tests="16" skipped="0" failures="0" errors="0" timestamp="2019-03-28T17:26:44" hostname="mc-linux" time="0.016">
+  <properties/>
+  <testcase name="whenYOutsideBoardThenRuntimeException" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.009"/>
+  <testcase name="whenPlayAndWholeFirstDiagonalThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.001"/>
+  <testcase name="whenPlayAndWhole3VerticalLineThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="givenFirstTurnWhenNextPlayerThenX" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenAllFieldsAreFilledThenDraw" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenPlayAndWhole1HorizontalLineThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenPlayAndWholeSecondDiagonalThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenPlayAndWhole3HorizontalLineThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenXOutsideBoardThenRuntimeException" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenPlayAndWhole1VerticalLineThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.001"/>
+  <testcase name="whenOccupiedThenRuntimeException" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenFirstMoveThenNoWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="givenLastTurnWasXWhenNextTurnThenO" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="givenLastTurnWasOWhenNextTurnThenX" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenPlayAndWhole2VerticalLineThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.0"/>
+  <testcase name="whenPlayAndWhole2HorizontalLineThenWinner" classname="pl.mwciesiel.tdd.tictactoe.TicTacToeSpec" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
