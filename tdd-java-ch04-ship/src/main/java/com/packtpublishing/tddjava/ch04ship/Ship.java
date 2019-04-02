@@ -1,11 +1,17 @@
 package com.packtpublishing.tddjava.ch04ship;
 
+import java.util.List;
+
 public class Ship {
 
     private final Location location;
+    private final Planet planet;
+    private List<Point> obstacles;
 
-    public Ship(Location location) {
+    public Ship(Location location, Planet planet, List<Point> obstacles) {
         this.location = location;
+        this.planet = planet;
+        this.obstacles = obstacles;
     }
 
     public Location getLocation() {
@@ -13,11 +19,11 @@ public class Ship {
     }
 
     public boolean moveForward() {
-        return location.forward();
+        return location.forward(planet.getMax(), obstacles);
     }
 
     public boolean moveBackward() {
-        return location.backward();
+        return location.backward(planet.getMax(), obstacles);
     }
 
     public void turnLeft() {
@@ -28,14 +34,23 @@ public class Ship {
         location.turnRight();
     }
 
-    public void receiveCommands(String commands) {
+    public String receiveCommands(String commands) {
+        StringBuilder results = new StringBuilder();
         for (char command : commands.toCharArray()) {
             switch (command) {
                 case 'f':
-                    moveForward();
+                    if(moveForward()) {
+                        results.append("O");
+                    } else {
+                        results.append("X");
+                    }
                     break;
                 case 'b':
-                    moveBackward();
+                    if(moveBackward()) {
+                        results.append("O");
+                    } else {
+                        results.append("X");
+                    }
                     break;
                 case 'l':
                     turnLeft();
@@ -45,5 +60,14 @@ public class Ship {
                     break;
             }
         }
+        return results.toString();
+    }
+
+    public Planet getPlanet() {
+        return planet;
+    }
+
+    public List<Point> getObstacles() {
+        return obstacles;
     }
 }
