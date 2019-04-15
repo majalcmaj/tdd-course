@@ -14,7 +14,7 @@ public class ShipSpec {
     private Planet planet;
     private List<Point> obstacles;
 
-    @BeforeTest
+    @BeforeMethod
     public void setUp() {
         location = new Location(new Point(21, 13), Direction.NORTH);
         Point max = new Point(50, 50);
