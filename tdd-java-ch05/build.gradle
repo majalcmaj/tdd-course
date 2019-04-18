@@ -5,7 +5,7 @@ plugins {
 group 'com.packtpublishing.tddjava'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 8
 
 repositories {
     mavenCentral()
