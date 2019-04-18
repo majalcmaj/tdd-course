@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="pl.mwciesiel.tdd.c02.FriendshipsTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-03-28T17:26:44" hostname="mc-linux" time="0.164">
-  <properties/>
-  <testcase name="joeHas5Friends" classname="pl.mwciesiel.tdd.c02.FriendshipsTest" time="0.158"/>
-  <testcase name="mockingWorksAsExpected" classname="pl.mwciesiel.tdd.c02.FriendshipsTest" time="0.002"/>
-  <testcase name="alexDoesNotHaveFriends" classname="pl.mwciesiel.tdd.c02.FriendshipsTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
