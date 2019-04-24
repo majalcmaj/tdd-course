@@ -102,8 +102,12 @@ public class Connect4TDD {
     }
 
     private boolean didPlayerWin(int row, int column) {
-        return checkVerticalWin(row, column) || checkHorizontalWin(row, column);
+        return checkVerticalWin(row, column) ||
+                checkHorizontalWin(row, column) ||
+                checkDiagonal1Win(row, column) ||
+                checkDiagonal2Win(row, column);
     }
+
 
     private Player[] getRow(int row) {
         return Arrays.stream(board).map(column -> column[row]).toArray(Player[]::new);
@@ -125,15 +129,27 @@ public class Connect4TDD {
     }
 
     private boolean checkHorizontalWin(int row, int column) {
-        Player[] theRow = getRow(row);
-        int startIdx = Math.max(0, column - DISCS_TO_WIN + 1);
-        int stopIdx = Math.min(COLUMNS - DISCS_TO_WIN, column);
-        for (int offset = startIdx; offset <= stopIdx; offset++) {
-            if(winsForOffset(theRow, offset)) {
+        Player[] toCheck = prepareHorizontalNumbersToCheck(row, column);
+        return checkForWin(toCheck);
+    }
+
+    private boolean checkForWin(Player[] toCheck) {
+        if (toCheck.length < DISCS_TO_WIN) {
+            return false;
+        }
+        for (int offset = 0; offset < toCheck.length - DISCS_TO_WIN; offset++) {
+            if (winsForOffset(toCheck, offset)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private Player[] prepareHorizontalNumbersToCheck(int row, int column) {
+        Player[] theRow = getRow(row);
+        int startIdx = Math.max(0, column - DISCS_TO_WIN + 1);
+        int stopIdx = Math.min(COLUMNS, column + DISCS_TO_WIN);
+        return Arrays.copyOfRange(theRow, startIdx, stopIdx);
     }
 
     private Boolean winsForOffset(Player[] theRow, int offset) {
@@ -143,6 +159,33 @@ public class Connect4TDD {
             }
         }
         return true;
+    }
+
+    private boolean checkDiagonal1Win(int row, int column) {
+        Player[] toCheck = getDiagonal1(row, column);
+        return checkForWin(toCheck);
+    }
+
+    private Player[] getDiagonal1(int row, int col) {
+        int toSubtract = Math.min(row, col);
+        final int startRow = row - toSubtract;
+        final int startCol = col - toSubtract;
+        final int iters = Math.min(COLUMNS - startCol, ROWS - startRow) - 1;
+        return IntStream.range(0, iters).mapToObj(it -> board[startCol + it][startRow + it]).toArray(Player[]::new);
+    }
+
+    private boolean checkDiagonal2Win(int row, int column) {
+        Player[] toCheck = getDiagonal2(row, column);
+        return checkForWin(toCheck);
+    }
+
+    private Player[] getDiagonal2(int row, int col) {
+        col = COLUMNS - col - 1;
+        int toSubtract = Math.min(row, col);
+        final int startRow = row - toSubtract;
+        final int startCol = col - toSubtract;
+        final int iters = Math.min(COLUMNS - startCol, ROWS - startRow) - 1;
+        return IntStream.range(0, iters).mapToObj(it -> board[COLUMNS - startCol - it - 1][startRow + it]).toArray(Player[]::new);
     }
 
     private void setCurrentPlayerAsWinning() {

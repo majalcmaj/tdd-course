@@ -131,7 +131,26 @@ public class Connect4TDDSpec {
             tested.putDiskInColumn(i + 1); // R
         }
         tested.putDiskInColumn(4); // B
-        System.out.println(output.toString());
+        assertThat(tested.getWinner(), is(Connect4TDD.Player.BLUE));
+    }
+
+    @Test
+    public void when4DiagonalDiscsConnectedThenThatPlayerWins() {
+        int[] moves = new int[] {1, 2, 2, 3, 4, 3, 3, 4, 4, 5};
+        for(int column : moves) {
+            tested.putDiskInColumn(column);
+        }
+        tested.putDiskInColumn(4);
+        assertThat(tested.getWinner(), is(Connect4TDD.Player.RED));
+    }
+
+    @Test
+    public void when4Diagonal2DiscsConnectedThenThatPlayerWins() {
+        int[] moves = new int[] {5, 6, 4, 5, 4, 4, 3, 3, 3, 3};
+        for(int column : moves) {
+            tested.putDiskInColumn(column);
+        }
+        tested.putDiskInColumn(4);
         assertThat(tested.getWinner(), is(Connect4TDD.Player.BLUE));
     }
 }
