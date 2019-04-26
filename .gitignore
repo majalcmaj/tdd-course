@@ -5,4 +5,4 @@ out/
 gradle/
 gradlew*
 *.iml
-
+.DS_Store
