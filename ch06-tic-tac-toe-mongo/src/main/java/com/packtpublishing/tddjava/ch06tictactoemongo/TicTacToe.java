@@ -1,5 +1,8 @@
 package com.packtpublishing.tddjava.ch06tictactoemongo;
 
+import com.packtpublishing.tddjava.ch06tictactoemongo.mongo.TicTacToeBean;
+import com.packtpublishing.tddjava.ch06tictactoemongo.mongo.TicTacToeCollection;
+
 public class TicTacToe {
 
     private Character[][] board = {{'\0', '\0', '\0'}, {'\0', '\0', '\0'}, {'\0', '\0', '\0'}};
@@ -7,18 +10,40 @@ public class TicTacToe {
     private static final int SIZE = 3;
     public static final String NO_WINNER = "No winner";
     public static final String RESULT_DRAW = "The result is draw";
+    private TicTacToeCollection collection;
+    private int turn = 0;
+
+    public TicTacToe(TicTacToeCollection collection) {
+        this.collection = collection;
+        dropCollection();
+    }
+
+    private void dropCollection() {
+        if (!this.collection.drop()) {
+            throw new RuntimeException("Error during dropping of the collection.");
+        }
+    }
 
     public String play(int x, int y) {
+        turn++;
         checkAxis(x);
         checkAxis(y);
         lastPlayer = nextPlayer();
         setBox(x, y, lastPlayer);
+        saveMove(x, y);
         if (isWin(x, y)) {
             return lastPlayer + " is the winner";
         } else if (isDraw()) {
             return RESULT_DRAW;
         } else {
             return NO_WINNER;
+        }
+    }
+
+    private void saveMove(int x, int y) {
+        boolean saveResult = collection.saveMove(new TicTacToeBean(turn, x, y, lastPlayer));
+        if (!saveResult) {
+            throw new RuntimeException("Error during saving the move in the database");
         }
     }
 
@@ -73,4 +98,7 @@ public class TicTacToe {
         return true;
     }
 
+    public TicTacToeCollection getCollection() {
+        return collection;
+    }
 }

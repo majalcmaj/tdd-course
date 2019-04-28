@@ -1,22 +1,34 @@
 package com.packtpublishing.tddjava.ch06tictactoemongo;
 
 
+import com.packtpublishing.tddjava.ch06tictactoemongo.mongo.TicTacToeBean;
+import com.packtpublishing.tddjava.ch06tictactoemongo.mongo.TicTacToeCollection;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class TicTacToeSpec {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
     private TicTacToe ticTacToe;
+    private TicTacToeCollection collection;
 
     @Before
     public final void before() {
-        ticTacToe = new TicTacToe();
+        collection = mock(TicTacToeCollection.class);
+        doReturn(true).when(collection).drop();
+        doReturn(true).when(collection).saveMove(any(TicTacToeBean.class));
+        ticTacToe = new TicTacToe(collection);
     }
 
     @Test
@@ -111,4 +123,35 @@ public class TicTacToeSpec {
         assertEquals("The result is draw", actual);
     }
 
+    @Test
+    public void whenInstantiatedThenSetCollection() {
+        assertNotNull(ticTacToe.getCollection());
+    }
+
+    @Test
+    public void whenPlayThenSaveMoveIsInvoked() {
+        TicTacToeBean move = new TicTacToeBean(1, 1, 3, 'X');
+        ticTacToe.play(move.getX(), move.getY());
+        verify(collection).saveMove(move);
+    }
+
+    @Test
+    public void whenPlayAndSaveReturnsFalseThenThrowException() {
+        TicTacToeBean move = new TicTacToeBean(1, 1, 3, 'X');
+        doReturn(false).when(collection).saveMove(move);
+        exception.expect(RuntimeException.class);
+        ticTacToe.play(move.getX(), move.getY());
+    }
+
+    @Test
+    public void whenInitializedThenDropCollectionCalled() {
+        verify(collection, times(1)).drop();
+    }
+
+    @Test
+    public void whenCollectionDropFailsThenExceptionIsThrown() {
+        doReturn(false).when(collection).drop();
+        exception.expect(RuntimeException.class);
+        new TicTacToe(collection);
+    }
 }
