@@ -1,0 +1,15 @@
+{
+    "status":"success",
+    "message":"Lista stacji",
+    "data":[
+        {
+            "no":666,
+            "name":"Test Station",
+            "active":true,
+            "rain":false,
+            "water":true,
+            "winddir":false,
+            "windlevel":false
+        },
+    ]
+}
